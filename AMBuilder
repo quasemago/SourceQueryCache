@@ -1,0 +1,26 @@
+# vim: set sts=2 ts=8 sw=2 tw=99 et ft=python: 
+import os
+
+for sdk_name in MMS.sdks:
+  sdk = MMS.sdks[sdk_name]
+
+  name = 'qcache_mm.' + sdk.name
+  binary = MMS.HL2Library(builder, name, sdk)
+  binary.compiler.cxxincludes += [os.path.join(builder.sourcePath, 'core')]
+  binary.compiler.cxxincludes += [os.path.join(builder.sourcePath, 'core', 'sourcehook')]
+  
+  if builder.target_platform == 'linux':
+   binary.compiler.postlink += ['-lrt']
+   binary.compiler.postlink += [os.path.join(builder.currentSourcePath, 'distorm3.a')]
+  elif builder.target_platform == 'windows':
+   binary.compiler.postlink += ['ws2_32.lib']
+   binary.compiler.postlink += [os.path.join(builder.currentSourcePath, 'distorm.lib')]
+   
+  binary.sources += [
+    'Detour.cpp',
+	'MemMan.cpp',
+	'qcache_mm.cpp'
+  ]
+  
+  nodes = builder.Add(binary)
+  MMS.binaries += [nodes]

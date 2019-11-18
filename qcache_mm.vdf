@@ -1,0 +1,5 @@
+"Metamod Plugin"
+{
+	"alias"		"Query Cache 2"
+	"file"		"addons/qcache_mm"
+}
