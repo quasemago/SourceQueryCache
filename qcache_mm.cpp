@@ -365,7 +365,7 @@ const char *QCachePlugin::GetLicense()
 
 const char *QCachePlugin::GetVersion()
 {
-	return "1.0.0.1";
+	return "1.0.0.2";
 }
 
 const char *QCachePlugin::GetDate()
